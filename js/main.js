@@ -283,10 +283,10 @@ function sendRequestViaEmail() {
     const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
     
     // Create mailto link
-    const mailtoLink = `mailto:your-email@example.com?subject=${encodeURIComponent(subject)}&body=${body}`;
+    const mailtoLink = `mailto:ishant150407@gmail.com.com?subject=${encodeURIComponent(subject)}&body=${body}`;
     
     // Create Gmail web link
-    const gmailWebLink = `https://mail.google.com/mail/?view=cm&fs=1&to=your-email@example.com&su=${encodeURIComponent(subject)}&body=${body}`;
+    const gmailWebLink = `https://mail.google.com/mail/?view=cm&fs=1&to=ishant150407@gmail.com&su=${encodeURIComponent(subject)}&body=${body}`;
     
     // For mobile, always use mailto
     if (isMobile) {
