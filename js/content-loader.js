@@ -130,7 +130,7 @@ const apkData = [
         size: '52MB',
         features: 'MOD, Unlimited Money',
         image: 'https://an1.com/uploads/posts/2023-04/1680953248_gtavc.png',
-        downloadLink: 'https://files.an1.co/gta-vc-mod_1.12-an1.com.apk'
+        downloadLink: 'https://file.gamedva.com/APK/G/Grand-Theft-Auto-Vice-City-v1.12-mod-GameDVA.com.apk'
     },
     {
         id: 'a4',
