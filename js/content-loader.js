@@ -127,7 +127,7 @@ const apkData = [
         title: 'rand Theft Auto: Vice City (MOD, Unlimited Money)',
         category: 'app',
         version: '17.03.38',
-        size: '52MB',
+        size: '1 GB',
         features: 'MOD, Unlimited Money',
         image: 'https://an1.com/uploads/posts/2023-04/1680953248_gtavc.png',
         downloadLink: 'https://file.gamedva.com/APK/G/Grand-Theft-Auto-Vice-City-v1.12-mod-GameDVA.com.apk'
