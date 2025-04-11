@@ -220,7 +220,6 @@ function loadFeaturesPage() {
         </section>
     `;
 }
-
 function loadRequestsPage() {
     contentArea.innerHTML = `
         <section class="requests-content">
@@ -244,7 +243,9 @@ function loadRequestsPage() {
                         <label for="requestDetails">Additional Details</label>
                         <textarea id="requestDetails" placeholder="Version, quality, or other specifications"></textarea>
                     </div>
-                    <button type="submit" class="submit-btn">Submit Request via Email</button>
+                    <button type="submit" class="submit-btn">
+                        <i class="fas fa-paper-plane"></i> Submit Request
+                    </button>
                 </form>
                 <div class="request-guidelines">
                     <h3>Request Guidelines</h3>
@@ -252,65 +253,73 @@ function loadRequestsPage() {
                         <li>Provide as much detail as possible</li>
                         <li>For movies, include year and preferred quality</li>
                         <li>For APKs, specify required version</li>
-                        <li>You'll be redirected to Gmail to complete your request</li>
+                        <li>Will open your default email app</li>
                     </ul>
                 </div>
             </div>
         </section>
     `;
 
-    // Form submission handler
     document.getElementById('requestForm').addEventListener('submit', function(e) {
         e.preventDefault();
-        sendRequestViaGmail();
+        sendRequestViaEmail();
     });
 }
-function sendRequestViaGmail() {
+
+function sendRequestViaEmail() {
     const type = document.getElementById('requestType').value;
     const title = document.getElementById('requestTitle').value;
     const details = document.getElementById('requestDetails').value;
     
-    // Validate required fields
     if (!type || !title) {
-        alert('Please fill in all required fields');
+        showFormStatus('error', 'Please fill in all required fields');
         return;
     }
-    
-    // Create email subject and body
-    const subject = `[Ishant_Shop] ${type} Request: ${title}`;
-    const body = `Request Details:\n\nType: ${type}\nTitle: ${title}\n\nAdditional Details:\n${details || 'None'}\n\n`;
-    
-    // Encode for URL
-    const encodedSubject = encodeURIComponent(subject);
-    const encodedBody = encodeURIComponent(body);
-    
-    // Create Gmail URL
-    const gmailUrl = `https://mail.google.com/mail/?view=cm&fs=1&to=ishant150407@gmail.com&su=${encodedSubject}&body=${encodedBody}`;
-    
-    // Open Gmail in new tab
-    window.open(gmailUrl, '_blank');
-    
-    // Optional: Show confirmation message
-    const confirmation = document.createElement('div');
-    confirmation.className = 'form-status success';
-    confirmation.innerHTML = `
-        <i class="fas fa-check-circle"></i>
-        <p>Redirecting to Gmail... If nothing happens, please check your pop-up settings.</p>
-    `;
-    document.getElementById('requestForm').appendChild(confirmation);
-    
-    // Remove confirmation after 5 seconds
-    setTimeout(() => {
-        confirmation.remove();
-    }, 5000);
-}
-// Add this alternative in sendRequestViaGmail()
-const mailtoLink = `mailto:ishant150407@gmail.com?subject=${encodedSubject}&body=${encodedBody}`;
 
-// Try Gmail first, then fallback to regular mailto
-const gmailWindow = window.open(gmailUrl, '_blank');
-if (!gmailWindow || gmailWindow.closed) {
-    window.location.href = mailtoLink;
+    const subject = `[Ishant_Shop] ${type} Request: ${title}`;
+    const body = `Request Details:%0A%0AType: ${type}%0ATitle: ${title}%0A%0AAdditional Details:%0A${details || 'None'}`;
+    
+    // Detect mobile devices
+    const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+    
+    // Create mailto link
+    const mailtoLink = `mailto:your-email@example.com?subject=${encodeURIComponent(subject)}&body=${body}`;
+    
+    // Create Gmail web link
+    const gmailWebLink = `https://mail.google.com/mail/?view=cm&fs=1&to=your-email@example.com&su=${encodeURIComponent(subject)}&body=${body}`;
+    
+    // For mobile, always use mailto
+    if (isMobile) {
+        window.location.href = mailtoLink;
+    } 
+    // For desktop, try Gmail first then fallback to mailto
+    else {
+        const gmailWindow = window.open(gmailWebLink, '_blank');
+        
+        // Fallback if popup blocked
+        if (!gmailWindow || gmailWindow.closed) {
+            window.location.href = mailtoLink;
+        }
+    }
+
+    // Show confirmation
+    showFormStatus('success', 'Preparing your email app...');
+}
+
+function showFormStatus(type, message) {
+    let statusEl = document.querySelector('.form-status');
+    if (!statusEl) {
+        statusEl = document.createElement('div');
+        statusEl.className = 'form-status';
+        document.getElementById('requestForm').appendChild(statusEl);
+    }
+    
+    statusEl.className = `form-status ${type}`;
+    statusEl.innerHTML = `<i class="fas fa-${type === 'success' ? 'check' : 'exclamation'}-circle"></i> ${message}`;
+    
+    setTimeout(() => {
+        statusEl.remove();
+    }, 5000);
 }
 
 // Filter movies function
