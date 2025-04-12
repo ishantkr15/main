@@ -343,4 +343,10 @@ function filterAPKs() {
     // For this example, we'll just reload the APKs
     loadAllAPKs();
 }
-
+<script>
+    // Run this once to clear existing login data
+    localStorage.removeItem('betaLoggedIn');
+    localStorage.removeItem('betaUserId');
+    localStorage.removeItem('betaUserName');
+    console.log('Cleared all login data');
+</script>
