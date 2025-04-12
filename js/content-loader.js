@@ -120,11 +120,11 @@ const apkData = [
         size: '300MB',
         features: 'Free for Android',
         image: 'https://an1.com/uploads/posts/2022-01/1641043768_capcut.png',
-        downloadLink: 'https://files.an1.net/capcut_14.0.0-an1.com.apk'
+        downloadLink: 'https://broad-sunset-e54d.danielwilliams7.workers.dev/Xzk5X0hSMF84M19ITTZMXzIzXzl3XzY0X1dJXzY1X05fNTVfTV8yOF9NXzI4X01fMjNfTldRXzE3X1pfMTVfWV8yOF9OR0l3WkdJNU1EXzMwX18yM19NRF80N19fNTVfT1RBNU9UQl80X05fMjhfQV8zNF9fODNfXzE1X0lfMzRfWkdWMkwwTl8yOF9SV184M180UkUxXzU1X184M19YWV8yOF9VWEZfOTdfVjE4XzE3X05fMjhfUV8yOF9PRE1fMTdfT1RfMTFfMkxfNTVfRndfOTlfdz09/1744434613/CapCut_Pro_latest_version_download.apk'
     },
     {
         id: 'a3',
-        title: 'rand Theft Auto: Vice City (MOD, Unlimited Money)',
+        title: 'Grand Theft Auto: Vice City (MOD, Unlimited Money)',
         category: 'app',
         version: '17.03.38',
         size: '1 GB',
