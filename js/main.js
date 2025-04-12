@@ -220,6 +220,7 @@ function loadFeaturesPage() {
         </section>
     `;
 }
+
 function loadRequestsPage() {
     contentArea.innerHTML = `
         <section class="requests-content">
@@ -243,9 +244,7 @@ function loadRequestsPage() {
                         <label for="requestDetails">Additional Details</label>
                         <textarea id="requestDetails" placeholder="Version, quality, or other specifications"></textarea>
                     </div>
-                    <button type="submit" class="submit-btn">
-                        <i class="fas fa-paper-plane"></i> Submit Request
-                    </button>
+                    <button type="submit" class="submit-btn">Submit Request via Email</button>
                 </form>
                 <div class="request-guidelines">
                     <h3>Request Guidelines</h3>
@@ -253,73 +252,66 @@ function loadRequestsPage() {
                         <li>Provide as much detail as possible</li>
                         <li>For movies, include year and preferred quality</li>
                         <li>For APKs, specify required version</li>
-                        <li>Will open your default email app</li>
+                        <li>You'll be redirected to Gmail to complete your request</li>
                     </ul>
                 </div>
             </div>
         </section>
     `;
+    
 
+    // Form submission handler
     document.getElementById('requestForm').addEventListener('submit', function(e) {
         e.preventDefault();
-        sendRequestViaEmail();
+        sendRequestViaGmail();
     });
 }
-
-function sendRequestViaEmail() {
+function sendRequestViaGmail() {
     const type = document.getElementById('requestType').value;
     const title = document.getElementById('requestTitle').value;
     const details = document.getElementById('requestDetails').value;
     
+    // Validate required fields
     if (!type || !title) {
-        showFormStatus('error', 'Please fill in all required fields');
+        alert('Please fill in all required fields');
         return;
     }
-
+    
+    // Create email subject and body
     const subject = `[Ishant_Shop] ${type} Request: ${title}`;
-    const body = `Request Details:%0A%0AType: ${type}%0ATitle: ${title}%0A%0AAdditional Details:%0A${details || 'None'}`;
+    const body = `Request Details:\n\nType: ${type}\nTitle: ${title}\n\nAdditional Details:\n${details || 'None'}\n\n`;
     
-    // Detect mobile devices
-    const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+    // Encode for URL
+    const encodedSubject = encodeURIComponent(subject);
+    const encodedBody = encodeURIComponent(body);
     
-    // Create mailto link
-    const mailtoLink = `mailto:ishant150407@gmail.com.com?subject=${encodeURIComponent(subject)}&body=${body}`;
+    // Create Gmail URL
+    const gmailUrl = `https://mail.google.com/mail/?view=cm&fs=1&to=ishant150407@gmail.com&su=${encodedSubject}&body=${encodedBody}`;
     
-    // Create Gmail web link
-    const gmailWebLink = `https://mail.google.com/mail/?view=cm&fs=1&to=ishant150407@gmail.com&su=${encodeURIComponent(subject)}&body=${body}`;
+    // Open Gmail in new tab
+    window.open(gmailUrl, '_blank');
     
-    // For mobile, always use mailto
-    if (isMobile) {
-        window.location.href = mailtoLink;
-    } 
-    // For desktop, try Gmail first then fallback to mailto
-    else {
-        const gmailWindow = window.open(gmailWebLink, '_blank');
-        
-        // Fallback if popup blocked
-        if (!gmailWindow || gmailWindow.closed) {
-            window.location.href = mailtoLink;
-        }
-    }
-
-    // Show confirmation
-    showFormStatus('success', 'Preparing your email app...');
-}
-
-function showFormStatus(type, message) {
-    let statusEl = document.querySelector('.form-status');
-    if (!statusEl) {
-        statusEl = document.createElement('div');
-        statusEl.className = 'form-status';
-        document.getElementById('requestForm').appendChild(statusEl);
-    }
+    // Optional: Show confirmation message
+    const confirmation = document.createElement('div');
+    confirmation.className = 'form-status success';
+    confirmation.innerHTML = `
+        <i class="fas fa-check-circle"></i>
+        <p>Redirecting to Gmail... If nothing happens, please check your pop-up settings.</p>
+    `;
+    document.getElementById('requestForm').appendChild(confirmation);
     
-    statusEl.className = `form-status ${type}`;
-    statusEl.innerHTML = `<i class="fas fa-${type === 'success' ? 'check' : 'exclamation'}-circle"></i> ${message}`;
-    
+    // Remove confirmation after 5 seconds
     setTimeout(() => {
-        statusEl.remove();
+        confirmation.remove();
     }, 5000);
+}
+// Add this alternative in sendRequestViaGmail()
+const mailtoLink = `mailto:ishant150407@gmail.com?subject=${encodedSubject}&body=${encodedBody}`;
+
+// Try Gmail first, then fallback to regular mailto
+const gmailWindow = window.open(gmailUrl, '_blank');
+if (!gmailWindow || gmailWindow.closed) {
+    window.location.href = mailtoLink;
 }
 
 // Filter movies function
@@ -343,10 +335,87 @@ function filterAPKs() {
     // For this example, we'll just reload the APKs
     loadAllAPKs();
 }
-<script>
-    // Run this once to clear existing login data
-    localStorage.removeItem('betaLoggedIn');
-    localStorage.removeItem('betaUserId');
-    localStorage.removeItem('betaUserName');
-    console.log('Cleared all login data');
-</script>
+
+// Add this to your existing main.js
+document.addEventListener('DOMContentLoaded', function() {
+    // Mobile menu toggle
+    const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+    if (mobileMenuBtn) {
+        mobileMenuBtn.addEventListener('click', function() {
+            const mainNav = document.getElementById('mainNav');
+            if (mainNav) mainNav.classList.toggle('active');
+        });
+    }
+
+    // Set active navigation link
+    const currentPage = window.location.pathname.split('/').pop();
+    const navLinks = document.querySelectorAll('#mainNav a');
+    
+    navLinks.forEach(link => {
+        if (link.getAttribute('href') === currentPage) {
+            link.classList.add('active');
+        } else {
+            link.classList.remove('active');
+        }
+    });
+});
+function setupLogout() {
+    const logoutBtn = document.getElementById('logoutBtn');
+    if (logoutBtn) {
+        logoutBtn.addEventListener('click', function() {
+            localStorage.removeItem('betaLoggedIn');
+            localStorage.removeItem('betaUserId');
+            localStorage.removeItem('betaUserName');
+            window.location.href = 'login.html';
+        });
+    }
+}
+
+// Call this in your DOMContentLoaded event
+document.addEventListener('DOMContentLoaded', function() {
+    setupLogout();
+    
+    // Display logged in user
+    const userName = localStorage.getItem('betaUserName');
+    if (userName) {
+        const userDisplay = document.getElementById('userDisplay');
+        if (userDisplay) {
+            userDisplay.textContent = `Welcome, ${userName}`;
+        }
+    }
+});
+
+// Add this function to your existing main.js
+function setupLogout() {
+    const logoutBtn = document.getElementById('logoutBtn');
+    if (logoutBtn) {
+        logoutBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            
+            // Clear login data
+            localStorage.removeItem('betaLoggedIn');
+            localStorage.removeItem('betaUserId');
+            localStorage.removeItem('betaUserName');
+            
+            // Redirect to login page
+            window.location.href = 'login.html';
+        });
+    }
+}
+
+// Then modify your existing DOMContentLoaded event to include:
+document.addEventListener('DOMContentLoaded', function() {
+    // Your existing code...
+    
+    // Add these lines:
+    setupLogout();
+    
+    // Show current user if logged in
+    const userName = localStorage.getItem('betaUserName');
+    if (userName) {
+        const userDisplay = document.getElementById('userDisplay');
+        if (userDisplay) {
+            userDisplay.textContent = `Hi, ${userName}`;
+        }
+    }
+});
