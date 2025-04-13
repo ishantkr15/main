@@ -110,7 +110,7 @@ const apkData = [
         size: '94MB',
         features: 'Premium unlocked, No ads',
         image: 'https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/e2/7e/db/e27edb0a-a64b-480b-060d-231054de80ca/AppIcon-0-0-1x_U007emarketing-0-7-0-0-85-220.png/1200x600wa.png',
-        downloadLink: 'https://drive.google.com/file/d/1UV1TdBBAqP525qETv8tNrvPot-Coldx0/view'
+        downloadLink: 'https://spotifymode.com/files/spotify-mod-9.0.16.572-spotifymode.com.apk'
     },
     {
         id: 'a2',
@@ -120,7 +120,7 @@ const apkData = [
         size: '300MB',
         features: 'Free for Android',
         image: 'https://an1.com/uploads/posts/2022-01/1641043768_capcut.png',
-        downloadLink: 'https://broad-sunset-e54d.danielwilliams7.workers.dev/Xzk5X0hSMF84M19ITTZMXzIzXzl3XzY0X1dJXzY1X05fNTVfTV8yOF9NXzI4X01fMjNfTldRXzE3X1pfMTVfWV8yOF9OR0l3WkdJNU1EXzMwX18yM19NRF80N19fNTVfT1RBNU9UQl80X05fMjhfQV8zNF9fODNfXzE1X0lfMzRfWkdWMkwwTl8yOF9SV184M180UkUxXzU1X184M19YWV8yOF9VWEZfOTdfVjE4XzE3X05fMjhfUV8yOF9PRE1fMTdfT1RfMTFfMkxfNTVfRndfOTlfdz09/1744434613/CapCut_Pro_latest_version_download.apk'
+        downloadLink: 'https://cdn600.onehost.io/2023/CapCut_14.0.0_1743163910_latestmodapks.com.apk'
     },
     {
         id: 'a3',
@@ -150,7 +150,7 @@ const apkData = [
         size: '85MB',
         features: 'Customization Options, Download Media, Ads-Free Experience',
         image: 'https://honista.social/wp-content/uploads/2025/01/insta-pro-apk-icon.jpg',
-        downloadLink: 'https://honista.social/apps/instagram-mod-v370.0.0.2.96.apk'
+        downloadLink: 'https://technologywhat.com/instander-clone/instander-clone-v17.2-kalmia.apk'
     },
     {
         id: 'a6',
@@ -161,7 +161,16 @@ const apkData = [
         features: 'Premium filters unlocked',
         image: 'photoshop.jpg',
         downloadLink: 'https://drive.google.com/uc?export=download&id=1PhotoShopDriveID'
-    }
+    },
+    {
+        id: 'a6',
+        title: 'Real Cricket™ 24',
+        category: 'Games',
+        version: '23.7.3',
+        size: '600MB',
+        features: '',
+        image: 'data:image/jpeg;base64,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',
+        downloadLink: 'https://files.modsmaniac.com/2025/04/Real-Cricket-24-Menu_v2.9_installer.apk'
 ];
 
 // Load latest movies (for home page)
